@@ -31,27 +31,43 @@ Alire crates, a proved core beside a host test crate, one-line gates, and a desi
 
 The core contains:
 
-- integer kinematic units, wheel speed from tooth-edge periods with an aging bound,
-  acceleration and slip
-- the vehicle reference speed with its ramp from the accelerometer
-- the per-wheel cycle: passive, hold, release in bounded pulses on a budget, build in
-  pulses, with the thresholds of eleven maps and an off position
-- the four-wheel controller with its fault monitor, the enable conditions, the valve
-  relay, the pump and the warning lamp, with a three-channel option for one rear sensor
-- the parameter set every vehicle file fills, with its ranges and the conditions between
-  fields
+<details>
+<summary><b>Kinematics</b> (2)</summary>
+
+- integer kinematic units, wheel speed from tooth-edge periods with an aging bound, acceleration
+  and slip
+- vehicle reference speed with its ramp from the accelerometer
+
+</details>
+
+<details>
+<summary><b>Control</b> (2)</summary>
+
+- per-wheel cycle: passive, hold, release in bounded pulses on a budget, build in pulses, with
+  thresholds of eleven maps and an off position
+- four-wheel controller with fault monitor, enable conditions, valve relay, pump and warning lamp,
+  with a three-channel option for one rear sensor
+
+</details>
+
+<details>
+<summary><b>Configuration</b> (1)</summary>
+
+- parameter set every vehicle file fills, with ranges and conditions between fields
+
+</details>
 
 The state of `main`:
 
 - Core proves at level 2: every check proved, no `pragma Assume`, no justified suppression
   (`gnatprove` 16.1.0).
-- The scenario gate holds on the plant model: braking from 80 km/h with the map on
-  against the map off, on dry asphalt 29.9 m against 33.8 m locked, wet asphalt 36.5 m
-  against 42.1 m, snow 140.2 m against 192.6 m, a split surface 32.8 m against 37.5 m,
-  with no wheel locked longer than 0.3 s on those four and 0.49 s on snow; on ice neither
-  run stops within the 20 s window and no wheel locks with the map on.
-- No target builds yet. `docs/boards/clracing-f4s.md` holds the pin plan of the first
-  board and `flash.do` the DFU recipe; `ROADMAP.md` has the phases.
+- Scenario gate holds on the plant model: braking from 80 km/h with the map on against the map
+  off, on dry asphalt 29.9 m against 33.8 m locked, wet asphalt 36.5 m against 42.1 m, snow
+  140.2 m against 192.6 m, a split surface 32.8 m against 37.5 m, with no wheel locked longer
+  than 0.3 s on those four and 0.49 s on snow; on ice neither run stops within the 20 s window
+  and no wheel locks with the map on.
+- No target builds yet. `docs/boards/clracing-f4s.md` contains the pin plan of the first board
+  and `flash.do` the DFU recipe; `ROADMAP.md` has the phases.
 
 ## Repository layout
 
@@ -76,7 +92,7 @@ A vehicle keeps its parameters in a YAML file in its own repository and names it
 
 `tools/gen-vehicle.py` turns the file into the `Antilock.Vehicle` package a target build
 compiles in, checking every value against the range the core declares and the conditions
-between fields; `docs/parameters.md` lists them. The library never carries a vehicle:
+between fields; `docs/parameters.md` lists them. The library never contains a vehicle:
 its name, its tire, its unit and its tuning live in that file.
 
     python3 tools/gen-vehicle.py params/vehicle.example.yaml --check

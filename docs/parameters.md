@@ -1,6 +1,6 @@
 # Parameters
 
-`Antilock.Parameters.Set` holds every vehicle and tuning value the core reads. A vehicle
+`Antilock.Parameters.Set` contains every vehicle and tuning value the core reads. A vehicle
 file supplies them in YAML and `tools/gen-vehicle.py` writes the `Antilock.Vehicle`
 package the target build compiles in (D6). The generator reads the ranges and defaults
 from `core/src/antilock-parameters.ads`, so this page describes them and that file
@@ -10,7 +10,7 @@ defines them.
 
 Keys are the field names in lower case and may sit under any heading; the generator
 flattens the headings. A key left out takes the default. Values are integers, or `true`
-and `false` for `rear_axle_combined`. The `maps` key holds a `default` entry and
+and `false` for `rear_axle_combined`. The `maps` key contains a `default` entry and
 numbered entries `1` to `11` that override single fields of one map.
 
     vehicle:
@@ -57,7 +57,7 @@ Units: mm, mm/s, mm/s2 (forward positive), kPa, us, mV.
 | `supply_max_mv` | 10 000 .. 40 000 | 16 500 | Above this supply the controller inhibits |
 | `rear_axle_combined` | boolean | false | Three-channel unit: the rear left sample and channel serve both rear wheels |
 
-Each of the eleven maps holds:
+Each of the eleven maps contains:
 
 | Field | Range | Default | Meaning |
 |---|---|---|---|

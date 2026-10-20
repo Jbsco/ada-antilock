@@ -61,5 +61,5 @@ board enumerates as a DFU device and `flash.do` writes the image:
   relay without the camera control and beeper pads; a three-channel unit frees two.
 - The MPU-6000's mounting orientation on the board sets which axis is longitudinal; the
   target crate reads the board alignment from the vehicle file or a board constant.
-- The current sensor pad carries a shunt amplifier on some revisions; a pressure sensor
+- The current sensor pad has a shunt amplifier on some revisions; a pressure sensor
   on it needs the amplifier bypassed.
