@@ -1,0 +1,16 @@
+name = "antilock_tests"
+description = "Scenario checks of the antilock core on a longitudinal vehicle model"
+version = "0.1.0-dev"
+
+authors = ["Jacob Seman"]
+maintainers = ["Jacob Seman <90524106+Jbsco@users.noreply.github.com>"]
+maintainers-logins = ["Jbsco"]
+licenses = "GPL-3.0-or-later"
+
+executables = ["scenario_check"]
+
+[[depends-on]]
+antilock_core = "*"
+
+[[pins]]
+antilock_core = { path = "../core" }
