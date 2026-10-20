@@ -61,3 +61,5 @@ gates on `main` are green.
 - Whether a handbrake switch input should set the rear channels passive, so a deliberate
   rear lock with the pedal applied does not spend the release budget on a caliper the
   handbrake holds.
+- Whether `teeth` should be per axle, since a ring inside a live axle tube is far smaller
+  than one on a front hub and the sensor's pitch guideline caps the count by diameter.

@@ -7,9 +7,15 @@ come from a vendor document are cited at the end.
 
 ## Wheel speed sensing
 
-- **Encoder wheel.** A ferromagnetic ring of about 48 teeth, tooth height 3 mm, tooth to
-  gap 50 %, one per wheel, with the sensor at a gap of 0.8 ± 0.1 mm [1]. The tooth count
-  is a parameter (`teeth`), so any count in 12 to 200 works once the ring is made. A
+- **Encoder wheel.** A ferromagnetic ring, one per wheel, with the tooth geometry the
+  sensor's datasheet asks for. The Bosch DF11 sensors take about 48 teeth, tooth height
+  3 mm, tooth to gap 50 %, at a gap of 0.8 ± 0.1 mm [1]. The ZF GS1005 series lists as
+  guideline minimums a tooth height of 5 mm, a tooth width of 2.5 mm, 10 mm between
+  teeth and a 6.35 mm thick target of low carbon cold rolled steel, at a 1.5 mm air gap,
+  with smaller dimensions possible after testing [14]. At that 12.5 mm pitch 48 teeth
+  need a diameter of about 190 mm. The tooth count is a parameter (`teeth`), one for all
+  four wheels, so any count in 12 to 200 works once the rings are made, and the smallest
+  mount sets it. A
   48-tooth ring on a 2.5 m tire gives 19 edges per metre: about 110 edges per second at
   20 km/h and 320 at 60 km/h, so a 5 ms loop sees a new edge every one or two steps at
   the low end. Below walking pace there is nothing to control, which is why the speed
@@ -24,8 +30,8 @@ come from a vendor document are cited at the end.
 - **Sensors.** The core reads a period and an age per wheel, so any sensor whose edges a
   timer can capture serves. Two families fit:
   - Three-wire Hall gear-tooth sensors with a logic-level output. The ZF GS100502 is in
-    production: M12 x 1 threaded body, 4.5 to 24 V supply, sinking output, up to 15 kHz,
-    -40 to 125 °C, IP67 [3]. The boss becomes a tapped hole and the gap a jam nut. The
+    production: M12 x 1 threaded body, 5 to 24 V supply at 3 mA, sinking output of 20 mA
+    at most behind an external pull-up, up to 15 kHz, -40 to 125 °C, IP67 [3] [14]. The boss becomes a tapped hole and the gap a jam nut. The
     Honeywell 1GT101DC of the same kind is discontinued [4]. A sinking output pulls up to
     the board's 3.3 V, since the capture pins of the F4S are not 5 V tolerant.
   - Two-wire differential Hall sensors of the Bosch DF11 family, as the Bosch Motorsport
@@ -131,3 +137,6 @@ decides a donor is whether the board can reach its coils:
 13. BMW ST040 training, Teves DSC III MK60 (twelve valves, two accumulators, the return
     pump, the central-valve master cylinder):
     https://ia801005.us.archive.org/11/items/BMWTechnicalTrainingDocuments/ST040%202001%20System%20Diagnosis/6%20DSC%202010-30-00.pdf
+14. ZF GS1005 to GS1007 gear tooth speed sensor datasheet, 2017 copy (target guideline,
+    air gap, supply, output):
+    https://static.chipdip.ru/lib/352/DOC044352937.pdf
