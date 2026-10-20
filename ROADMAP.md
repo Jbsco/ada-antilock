@@ -30,6 +30,25 @@ gates on `main` are green.
   a dash, and a trace tool that plots the CSV traces of the checker and the board alike.
 - Phase 6, open. Calibration. Maps per surface from logged stops, and a map editor that
   writes the vehicle file.
+- Phase 7, candidate. Brake traction at crawl speed. On a stability unit with a changeover
+  valve and an intake valve per circuit beside the per-wheel valves (twelve in the MK60,
+  `docs/hardware.md`), the pump builds pressure on one spinning driven wheel with the
+  pedal untouched, and the differential hands that wheel's brake torque to the wheel with
+  grip: an electronic differential lock for a locked part-time four-wheel-drive train.
+  Needs four more coil outputs, a circuit-level valve state beside the per-wheel channel,
+  a speed ceiling, a spin threshold against the slowest wheel, pump and brake duty
+  budgets, pedal priority, and a master cylinder the pump can draw through, which the
+  Phase 2 rig measures.
+  Launch is the same function with the reference taken from the accelerometer, since
+  every wheel can spin at once. Engine torque stays with the engine controller, which
+  takes the wheel speeds from the Phase 5 frames. Opening this phase amends D2.
+- Phase 8, candidate. Yaw control on loose surfaces. A target yaw rate from a steering
+  angle sensor and the vehicle speed, the measured rate from the board's gyro, and a
+  single-wheel build against the error, with thresholds wide enough for the driver's own
+  slides and an off position on the switch. A wrong build at speed in a corner is a worse
+  failure than a wrong release, so the claims bound the build in time, pressure, speed
+  window and yaw error before any vehicle test. Needs the circuit state of Phase 7, a
+  steering angle sensor and a rigid mount for the board. Opening this phase amends D2.
 
 ## Open questions
 
@@ -39,3 +58,6 @@ gates on `main` are green.
   fixed 5 ms, where a 48-tooth ring on a large tire gives an edge every 9 ms at 20 km/h.
 - How the controller should behave in a locked part-time four-wheel-drive train beyond
   the reference ramp of D8; no published motorsport calibration covers it.
+- Whether a handbrake switch input should set the rear channels passive, so a deliberate
+  rear lock with the pedal applied does not spend the release budget on a caliper the
+  handbrake holds.

@@ -29,6 +29,17 @@ Non-goals, enforced:
   and its name never appears here (D15).
 - No board drivers in the core: the target crate reads the sensors and drives the coils.
 
+Amended 2026-10-19: the traction and stability non-goals stand, and `ROADMAP.md` records
+two candidates for a later entry here: brake traction at crawl speed on a twelve-valve
+unit, which is an electronic differential lock and covers launch, and yaw control on
+loose surfaces from the board's gyro and a steering angle sensor. The first downstream
+vehicle is a part-time four-wheel-drive truck whose owner wants locked four-wheel drive
+predictable on loose surfaces at speed, with casual rallycross in view. Both candidates
+build pressure without the pedal, which the enable clause of `Antilock.Controller.Step`
+forbids, so opening either one splits that claim into no release without the pedal and a
+build without it bounded in speed, time, pressure and duty, and adds the hazard to
+`docs/safety-case.md` before any code.
+
 ## D3. Repository layout (2026-10-19)
 
 - `core/` is the SPARK library crate `antilock_core`: hardware independent, proved, no
