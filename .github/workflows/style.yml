@@ -1,0 +1,44 @@
+name: Style
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Alire
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.config/alire
+            ~/.cache/alire
+            ~/.local/share/alire
+          key: alire-style-${{ runner.os }}-${{ hashFiles('core/alire.toml', 'tests/alire.toml') }}
+          restore-keys: alire-style-${{ runner.os }}-
+
+      - name: Install Alire
+        uses: alire-project/setup-alire@v3
+        with:
+          version: 2.1.1
+
+      - name: Install the markdown renderer and PyYAML
+        run: sudo apt-get update && sudo apt-get install -y discount python3-yaml
+
+      - name: Select GNAT toolchain
+        run: |
+          cd core
+          alr -n toolchain --select gnat_native
+
+      - name: Run style gate
+        run: |
+          set -o pipefail
+          bash style.do 2>&1 | tee style-output.log
+          grep -q "style: all checks clean" style-output.log

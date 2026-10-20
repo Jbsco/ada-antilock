@@ -1,0 +1,59 @@
+name: SPARK Proofs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# A new push to a branch supersedes the proof run of its previous tip.
+concurrency:
+  group: spark-proofs-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Alire
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.config/alire
+            ~/.cache/alire
+            ~/.local/share/alire
+          key: alire-prove-${{ runner.os }}-${{ hashFiles('core/alire.toml') }}
+          restore-keys: alire-prove-${{ runner.os }}-
+
+      - name: Install Alire
+        uses: alire-project/setup-alire@v3
+        with:
+          version: 2.1.1
+
+      - name: Select GNAT toolchain
+        run: |
+          cd core
+          alr -n toolchain --select gnat_native
+
+      - name: Fetch dependencies
+        run: |
+          cd core
+          alr -n update
+          alr -n build --stop-after=post-fetch || true
+          alr -n exec -- gnatprove --version
+
+      # Every run proves the whole core from a fresh session.
+      - name: Run SPARK proofs
+        env:
+          PROVE_JOBS: 4
+          PROVE_SWITCHES: --timeout=900
+        run: |
+          set -o pipefail
+          bash prove.do 2>&1 | tee prove-output.log
+          grep -q "core 100% proved" prove-output.log
+          grep -q "(0 pragma Assume, 0 justified" prove-output.log

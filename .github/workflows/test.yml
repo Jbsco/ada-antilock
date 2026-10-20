@@ -1,0 +1,44 @@
+name: Scenario Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Alire
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.config/alire
+            ~/.cache/alire
+            ~/.local/share/alire
+          key: alire-test-${{ runner.os }}-${{ hashFiles('core/alire.toml', 'tests/alire.toml') }}
+          restore-keys: alire-test-${{ runner.os }}-
+
+      - name: Install Alire
+        uses: alire-project/setup-alire@v3
+        with:
+          version: 2.1.1
+
+      - name: Install PyYAML
+        run: sudo apt-get update && sudo apt-get install -y python3-yaml
+
+      - name: Select GNAT toolchain
+        run: |
+          cd tests
+          alr -n toolchain --select gnat_native
+
+      - name: Run scenario checks
+        run: |
+          set -o pipefail
+          bash test.do 2>&1 | tee test-output.log
+          grep -q "all scenarios within limits" test-output.log
