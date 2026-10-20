@@ -119,7 +119,9 @@ installation have to meet, and the hazards with their mitigations. `docs/hardwar
 describes the sensors, the hydraulic units the board can drive, the coil drivers, the
 valve relay and the supervisor. The non-goals of `DESIGN.md` D2 are enforced: no
 stability or traction control, no proportional or three-position valves, no brake by
-wire, no vehicle and no drivers in the core.
+wire, no vehicle and no drivers in the core. Brake traction at crawl speed and yaw
+control are candidates in `ROADMAP.md`, Phases 7 and 8, outside the core until D2 is
+amended.
 
 ## Verification policy
 

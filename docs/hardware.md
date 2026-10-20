@@ -48,7 +48,14 @@ decides a donor is whether the board can reach its coils:
   such a block yourself means stripping the module's circuit board and keeping the coil
   carrier, with the coil pins wired out. The MK60 of a four-cylinder E90 is a cheap
   practice donor: internal pressure sensor, standard Hall sensors, parts reported at $35
-  to $40 shipped [7].
+  to $40 shipped [7]. The MK60 block holds 12 solenoid valves: 4 inlet (normally open),
+  4 outlet (normally closed), 2 changeover (normally open) and 2 intake (normally closed),
+  with 2 accumulators and the return pump. In anti-lock regulation the pump returns fluid
+  to the master cylinder circuits. In traction and stability intervention it builds the
+  brake pressure, drawing through the central valves of a DSC master cylinder [13]. The
+  core drives the eight per-wheel valves and leaves the other four de-energized. A
+  conventional master cylinder has no central valves, so the build rate through one is a
+  bench measurement before the traction candidate of the roadmap opens.
 - **Coils in the block.** Late-80s to mid-90s units with a remote control unit keep the
   coils in the block and bring them to a connector: the Bosch 2E of Saab, BMW, Mercedes
   and Porsche of the era, the Teves Mk IV of Ford and others, and the Japanese actuators
@@ -121,3 +128,6 @@ decides a donor is whether the board can reach its coils:
     https://www.underhoodservice.com/abs-esc-hydraulic-control-unit-modulator-diagnostics/
 12. Saab WIS, ABS 2E solenoid valves:
     https://saabwisonline.com/900/1994/5-brakes/abs-2e/technical-description/solenoid-valves
+13. BMW ST040 training, Teves DSC III MK60 (twelve valves, two accumulators, the return
+    pump, the central-valve master cylinder):
+    https://ia801005.us.archive.org/11/items/BMWTechnicalTrainingDocuments/ST040%202001%20System%20Diagnosis/6%20DSC%202010-30-00.pdf
