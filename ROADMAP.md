@@ -33,7 +33,7 @@ gates on `main` are green.
 
 ## Open questions
 
-- Whether the F4S pads carry enough outputs for a four-channel unit with a pump and a
+- Whether the F4S pads have enough outputs for a four-channel unit with a pump and a
   relay without giving up the SWD pins (`docs/boards/clracing-f4s.md`).
 - Whether the loop period should follow the wheel edges at low speed instead of the
   fixed 5 ms, where a 48-tooth ring on a large tire gives an edge every 9 ms at 20 km/h.

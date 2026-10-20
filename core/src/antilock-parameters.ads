@@ -1,5 +1,5 @@
 --  The vehicle and tuning parameters a build supplies, generated from the
---  vehicle file by tools/gen-vehicle.py. Every field carries its range, and
+--  vehicle file by tools/gen-vehicle.py. Every field has its range, and
 --  Valid states the conditions between fields.
 with Antilock.Units; use Antilock.Units;
 
