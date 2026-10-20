@@ -1,0 +1,12 @@
+name = "antilock_core"
+description = "Anti-lock brake control core in SPARK: slip cycle, reference, faults"
+version = "0.1.0-dev"
+
+authors = ["Jacob Seman"]
+maintainers = ["Jacob Seman <90524106+Jbsco@users.noreply.github.com>"]
+maintainers-logins = ["Jbsco"]
+licenses = "GPL-3.0-or-later"
+tags = ["spark", "abs", "brakes", "embedded", "automotive"]
+
+[[depends-on]]
+gnatprove = "^16.1.0"
