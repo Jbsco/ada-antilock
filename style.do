@@ -54,15 +54,18 @@ if [ -n "$VEHICLES" ]; then
     echo "$VEHICLES" | sed 's/^/    /'
     FAIL=1
 fi
-# The sibling projects are named in the README and the design ledger only.
-SIBLINGS=$(git ls-files -z | xargs -0 grep -nliE 'adaflight|betaflight' 2>/dev/null \
+# The sibling project is named in the README and the design ledger only, and the
+# flight firmware whose board maps the board notes cite in those notes as well.
+SIBLINGS=$(git ls-files -z | xargs -0 grep -nliE 'adaflight' 2>/dev/null \
            | grep -v '^style.do$' | grep -v '^README.md$' | grep -v '^DESIGN.md$' || true)
-if [ -n "$SIBLINGS" ]; then
-    echo "  sibling project named outside the README and the design ledger:"
-    echo "$SIBLINGS" | sed 's/^/    /'
+FIRMWARE=$(git ls-files -z | xargs -0 grep -nliE 'betaflight' 2>/dev/null \
+           | grep -v '^style.do$' | grep -v '^README.md$' | grep -v '^DESIGN.md$' | grep -v '^docs/boards/' || true)
+if [ -n "$SIBLINGS$FIRMWARE" ]; then
+    echo "  sibling project or flight firmware named outside the README, the design ledger and the board notes:"
+    echo "$SIBLINGS$FIRMWARE" | sed 's/^/    /'
     FAIL=1
 fi
-[ -z "$PATHS$VEHICLES$SIBLINGS" ] && echo "  clean"
+[ -z "$PATHS$VEHICLES$SIBLINGS$FIRMWARE" ] && echo "  clean"
 
 echo "=========================================="
 if [ "$FAIL" != "0" ]; then

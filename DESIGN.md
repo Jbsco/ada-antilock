@@ -165,6 +165,12 @@ The library names no downstream vehicle anywhere, and names its sibling projects
 the README and this ledger. `style.do` checks both on every run, together with local
 paths.
 
+Amended 2026-10-19: the board notes under `docs/boards/` cite the flight firmware whose
+target map a pin plan comes from, by name, since the provenance of a pin assignment is
+part of the plan. The gate allows that name there and nowhere else outside the README and
+this ledger. The gate reads tracked files only, so it checks a new file once the file is
+staged or committed; the first push failed on exactly this case.
+
 ## D16. Ada language level (2026-10-19)
 
 The sources use the Ada 2012 forms of aggregates and assignment, as adaflight does, so
