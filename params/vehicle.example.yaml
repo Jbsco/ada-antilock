@@ -1,0 +1,52 @@
+---
+# Vehicle parameters of the ada-antilock controller. tools/gen-vehicle.py turns this file
+# into the Antilock.Vehicle package a build compiles in. Units: mm, mm/s, mm/s2 (forward
+# positive), kPa, us, mV. Ranges and defaults are those of Antilock.Parameters.Set in
+# core/src/antilock-parameters.ads; a value outside its range refuses to generate. A key
+# left out takes the default of that record. Keys may be grouped under any heading; the
+# generator flattens them.
+
+vehicle:
+  teeth: 48                   # encoder teeth per wheel
+  circumference_mm: 2000      # rolling circumference of the tire
+  rear_axle_combined: false   # true for a three-channel unit with one rear sensor
+
+timing:
+  loop_period_us: 5000
+  speed_floor: 1500           # no intervention below 5.4 km/h
+  max_vehicle_decel: 12000    # the reference ramps down at this rate or the measured one
+  decel_margin: 200
+
+cycle:
+  release_pulse_us: 8000
+  hold_max_us: 150000
+  build_pulse_first_us: 10000
+  build_pulse_us: 5000
+  build_pause_us: 20000
+  build_max_us: 500000
+  release_budget_us: 300000   # release time allowed per window
+  release_window_us: 1000000
+
+monitor:
+  pulse_timeout_us: 500000
+  dropout_grace_us: 1000000
+  pump_run_on_us: 1000000
+  pedal_pressure_threshold: 300
+  supply_min_mv: 9000
+  supply_max_mv: 16500
+
+# Eleven control maps, position 12 of the switch being off. Map 1 is the most sensitive
+# (least slip allowed), 11 the most aggressive. "default" fills every map; a numbered
+# entry overrides single fields of that map.
+maps:
+  default:
+    decel_threshold: 12000
+    slip_release: 200
+    slip_recover: 80
+    reaccel_threshold: 4000
+  1:
+    slip_release: 120
+    slip_recover: 50
+  11:
+    slip_release: 350
+    slip_recover: 150
