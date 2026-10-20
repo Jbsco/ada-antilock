@@ -25,6 +25,7 @@ OK = {
     "table","thead","tbody","tfoot","tr","th","td","code","pre","em","strong","b","i",
     "blockquote","a","img","del","ins","sup","sub","span","div","center","style",
     "figure","figcaption","caption","colgroup","col",
+    "details","summary",
 }
 
 def render(path, flags=None):
